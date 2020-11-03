@@ -3,23 +3,27 @@ const DATA_CACHE_NAME = "data-cache-v1";
 
 const iconSizes = ["192", "512"];
 const iconFiles =iconSizes.map(
-  (size) => `/icons/icon-${size}x${size}.png`
+  (size) => `/assets/icons/icon-${size}x${size}.png`
 );
 
 const staticFilesToPreCache = [
   "/",
-  "manifest.webmanifest",
+  "/manifest.webmanifest",
+  "/assets/styles.css",
 ].concat(iconFiles);
 
 //install
 self.addEventListener("install", function(evt) {
+  // pre cache image data
   evt.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      console.log("Your files were pre-cached!");
-      return cache.addAll(staticFilesToPreCache);
-    })
-  );
-
+    caches.open(DATA_CACHE_NAME).then((cache) => cache.add("/api/transaction"))
+    );
+    // pre cache all static assets
+    evt.waitUntil(
+      caches.open(CACHE_NAME).then((cache) => cache.addAll(staticFilesToPreCache))
+    );
+    // tell the browser to activate this service worker immediately once it
+    // has finished installing
   self.skipWaiting();
 });
 
@@ -43,15 +47,14 @@ self.addEventListener("activate", function(evt) {
 
 // fetch
 self.addEventListener("fetch", function(evt) {
-  const {url} = evt.request;
-  if (url.includes("/all") || url.includes("/find")) {
+  if (evt.request.url.includes("/api/")) {
     evt.respondWith(
       caches.open(DATA_CACHE_NAME).then(cache => {
         return fetch(evt.request)
         .then(response => {
           // If the response was good, clone it and store it in the cache.
           if (response.status === 200) {
-            cache.put(evt.request, response.clone());
+            cache.post(evt.request.url, response.clone());
           }
           return response;
         })
