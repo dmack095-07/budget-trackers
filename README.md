@@ -1,4 +1,4 @@
-# Online/Offline Budget Trackers ![License](https://img.shields.io/badge/License--yellow.svg)
+# Online/Offline Budget Trackers ![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
   Table of Contents
 
@@ -22,7 +22,7 @@
   
   ## License:
 
-  For more information vist: (https://opensource.org/licenses/)
+  For more information vist: (https://opensource.org/licenses/MIT)
 
   ## Contributing:
   Dianna
@@ -35,3 +35,5 @@
   Here is a link to my [Github Profile](https://github.com/dmack095-07)
 
   You can reach me at dianna.mack@yahoo.com for additional questions!
+
+  <img width="1440" alt="Screen Shot 2020-11-03 at 10 15 43 PM" src="https://user-images.githubusercontent.com/65475404/98068648-aaec3a80-1e2a-11eb-889a-12393f8c26c1.png">
